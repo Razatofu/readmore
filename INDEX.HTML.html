@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paragraph Editor </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-bottom: 10px;
+            background-color: darkseagreen;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+            border-radius: 5px;
+            background-color: aqua;
+        }
+        button:hover{
+            background-color: blue;
+        }
+
+        #post-content {
+  width: 200px;
+  height: auto;
+  border: 1px solid black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: burlywood;
+}
+
+.read-more {
+  color: blue;
+  cursor: pointer;
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+<p id="demo"></p>
+<h2>Paragraph Editor</h2>
+
+<p>Enter a paragraph:</p>
+<textarea id="paragraphInput" placeholder="Write your paragraph here..."></textarea><br>
+
+<button onclick="submitParagraph()">Submit Paragraph</button>
+
+<h3>Options:</h3>
+<button onclick="editParagraph()">Edit Paragraph</button>
+<button onclick="deletePart()">Delete Part</button>
+<button onclick="viewParagraph()">View Paragraph</button>
+
+<h3>Updated Paragraph:</h3>
+<p id="currentParagraph">No paragraph submitted yet.</p><br><br>
+<h2> READ MORE FUNCTION</h2>
+
+<div class="post">
+    <p id="post-content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </div>
+
+<script>
+    let paragraph = '';
+
+    // Function to submit the paragraph input by the user
+    function submitParagraph() {
+        const inputText = document.getElementById('paragraphInput').value;
+        if (inputText) {
+            paragraph = inputText;
+            document.getElementById('currentParagraph').textContent = paragraph;
+        } else {
+            alert('Please enter a paragraph first!');
+        }
+    }
+
+    // Function to edit the paragraph
+    function editParagraph() {
+        if (!paragraph) {
+            alert('No paragraph to edit! Please submit a paragraph first.');
+            return;
+        }
+
+        const partToEdit = prompt('Enter the part of the paragraph you want to edit:');
+        if (paragraph.includes(partToEdit)) {
+            const newText = prompt('Enter the new text to replace it with:');
+            paragraph = paragraph.replace(partToEdit, newText);
+            document.getElementById('currentParagraph').textContent = paragraph;
+        } else {
+            alert('The text you want to edit was not found.');
+        }
+    }
+
+    // Function to delete part of the paragraph
+    function deletePart() {
+        if (!paragraph) {
+            alert('No paragraph to delete from! Please submit a paragraph first.');
+            return;
+        }
+
+        const partToDelete = prompt('Enter the part of the paragraph you want to delete:');
+        if (paragraph.includes(partToDelete)) {
+            paragraph = paragraph.replace(partToDelete, '');
+            document.getElementById('currentParagraph').textContent = paragraph;
+        } else {
+            alert('The text you want to delete was not found.');
+        }
+    }
+
+    // Function to view the current paragraph
+    function viewParagraph() {
+        if (!paragraph) {
+            alert('No paragraph to display!');
+        } else {
+            alert('Current paragraph: ' + paragraph);
+        }
+    }
+   
+
+
+
+          document.addEventListener("DOMContentLoaded", function() {
+         const postContent = document.getElementById('post-content');
+  
+         // Full post content and the truncated version.
+         const fullText = postContent.innerHTML;
+          const newText = fullText.substring(0, 200); // Truncate at 200 characters
+          
+         // Set the initial truncated content with "Read More" at the end
+         postContent.innerHTML = newText + '<span class="read-more">... Read More</span>';
+  
+  const readMoreLink = document.querySelector('.read-more');
+  
+  // When "Read More" is clicked, show the full content
+  readMoreLink.addEventListener('click', function() {
+    postContent.innerHTML = fullText;  // Set the full text
+
+
+  });
+});
+          document.getElementById("demo").innerHTML = "Date : " + Date();
+</script>
+
+</body>
+</html>
+
+
+
+
